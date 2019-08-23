@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.EventLoop;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -18,15 +19,23 @@ public class SimpleAuton extends LinearOpMode{
         telemetry.addData("Status","Initialized");
         telemetry.update();
         waitForStart();
+        moveTime(0.5,-0.5,2,myTimer);
+
+
+    }
+    public void moveTime(double l, double r, int time, ElapsedTime myTimer){
+        int targetTime = time*1000;//convert to milliseconds
         myTimer.reset();
-        leftMotor.setPower(0.5);
-        rightMotor.setPower(0.5);
-        while(myTimer.milliseconds()<1000){
+        leftMotor.setPower(l);
+        rightMotor.setPower(r);
+        while(myTimer.milliseconds()<targetTime){
             //dont do anything
         }
+        stopDrive();
+
+    }
+    public void stopDrive(){
         leftMotor.setPower(0);
         rightMotor.setPower(0);
-
-
     }
 }

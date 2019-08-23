@@ -21,8 +21,8 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
         while(opModeIsActive()){
             double left = this.gamepad1.left_stick_y;
             double right = -this.gamepad1.right_stick_y;
-            leftMotor.setPower(left/3);
-            rightMotor.setPower(right/3);
+            leftMotor.setPower(left);
+            rightMotor.setPower(right);
             telemetry.addData("Status","Running");
             telemetry.addData("Left Joystick",left);
             telemetry.addData("Right Joysticl",right);

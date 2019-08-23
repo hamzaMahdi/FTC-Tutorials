@@ -14,29 +14,26 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 
-@Autonomous(name="Drive Avoid Imu", group="Exercises")
+@Autonomous(name="Drive Imu")
 public class IMU_Auton extends LinearOpMode
 {
     DcMotor                 leftMotor, rightMotor;
-    TouchSensor             touch;
     BNO055IMU               imu;
     Orientation             lastAngles = new Orientation();
-    double                  globalAngle, power = .30, correction;
-    boolean                 aButton, bButton, touched;
+    double                  globalAngle, power = .70, correction;
 
     // called when init button is  pressed.
     @Override
     public void runOpMode() throws InterruptedException {
-        leftMotor = hardwareMap.dcMotor.get("left_motor");
-        rightMotor = hardwareMap.dcMotor.get("right_motor");
+        int [][][][] hyperSphere= new int[10][2][3][5];
+        leftMotor = hardwareMap.dcMotor.get("left");
+        rightMotor = hardwareMap.dcMotor.get("right");
 
         leftMotor.setDirection(DcMotor.Direction.REVERSE);
 
         leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        // get a reference to touch sensor.
-        touch = hardwareMap.touchSensor.get("touch_sensor");
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
 
@@ -81,7 +78,7 @@ public class IMU_Auton extends LinearOpMode
         //drive straight
         ElapsedTime myTimer = new ElapsedTime();
         myTimer.reset();
-        while(myTimer.milliseconds()<5000) {
+        while(myTimer.milliseconds()<10000) {
             correction = getProportionalTerm();//get correction value
             leftMotor.setPower(power - correction);
             rightMotor.setPower(power + correction);
@@ -106,10 +103,6 @@ public class IMU_Auton extends LinearOpMode
      */
     private double getAngle()
     {
-        // We experimentally determined the Z axis is the axis we want to use for heading angle.
-        // We have to process the angle because the imu works in euler angles so the Z axis is
-        // returned as 0 to +180 or 0 to -180 rolling back to -179 or +179 when rotation passes
-        // 180 degrees. We detect this transition and track the total cumulative angle of rotation.
 
         Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
