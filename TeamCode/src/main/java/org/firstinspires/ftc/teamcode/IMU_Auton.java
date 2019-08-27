@@ -25,7 +25,6 @@ public class IMU_Auton extends LinearOpMode
     // called when init button is  pressed.
     @Override
     public void runOpMode() throws InterruptedException {
-        int [][][][] hyperSphere= new int[10][2][3][5];
         leftMotor = hardwareMap.dcMotor.get("left");
         rightMotor = hardwareMap.dcMotor.get("right");
 
@@ -71,7 +70,7 @@ public class IMU_Auton extends LinearOpMode
 
         sleep(1000);
 
-        rotate(90, power);
+        //rotate(90, power);
         rightMotor.setPower(0);
         leftMotor.setPower(0);
         sleep(1000);
@@ -129,7 +128,7 @@ public class IMU_Auton extends LinearOpMode
         // The gain value determines how sensitive the correction is to direction changes.
         // You will have to experiment with your robot to get small smooth direction changes
         // to stay on a straight line.
-        double correction, angle, gain = .10;
+        double correction, angle, gain = .010;
 
         angle = getAngle();
 

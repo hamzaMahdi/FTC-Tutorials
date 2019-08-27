@@ -16,9 +16,11 @@ public class EncoderAuto extends LinearOpMode {
         rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        MotorControl driveTrain = new MotorControl();
         telemetry.addData("Status","Initialized");
         telemetry.update();
         waitForStart();
+        driveTrain.driveStraight(1000,0.9,rightMotor,leftMotor);
         driveStraight(1000,0.7);
         sleep(2000);//wait before exiting
     }
